@@ -9,7 +9,7 @@ const app = express();
 const PORT = Number(process.env.PORT || 3000);
 const JWT_SECRET = process.env.JWT_SECRET;
 const OWNER_USERNAME = process.env.OWNER_USERNAME || "xyzzniko";
-const OWNER_PASSWORD = process.env.OWNER_PASSWORD;"AKUNIKO142011"
+const OWNER_PASSWORD = process.env.OWNER_PASSWORD;
 
 if (!process.env.DATABASE_URL || !JWT_SECRET || !OWNER_PASSWORD) {
   console.warn("Missing DATABASE_URL, JWT_SECRET, or OWNER_PASSWORD environment variable.");
