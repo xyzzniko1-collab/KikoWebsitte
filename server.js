@@ -51,6 +51,14 @@ async function ensureSchema() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS products (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      price NUMERIC(12,2) NOT NULL CHECK(price >= 0),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
   const configuredHash = await bcrypt.hash(OWNER_PASSWORD, 12);
   const owner = await sql`SELECT id FROM users WHERE role='owner' ORDER BY id ASC LIMIT 1`;
   const configuredUser = await sql`SELECT id, role FROM users WHERE LOWER(username)=LOWER(${OWNER_USERNAME}) LIMIT 1`;
@@ -241,6 +249,42 @@ app.post("/api/links", auth, ownerOnly, async (req,res) => {
 app.delete("/api/links/:id", auth, ownerOnly, async (req,res) => {
   await sql`DELETE FROM links WHERE id=${req.params.id}`;
   res.json({ok:true});
+});
+
+app.get("/api/products", async (req,res) => {
+  try {
+    await dbReady();
+    const rows = await sql`SELECT id,name,price,created_at FROM products ORDER BY id DESC`;
+    res.json(rows);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({error:"Gagal mengambil produk"});
+  }
+});
+
+app.post("/api/products", auth, ownerOnly, async (req,res) => {
+  const name = String(req.body?.name || "").trim();
+  const rawPrice = String(req.body?.price ?? "").replace(/[^0-9.,]/g, "").replace(/,/g, "");
+  const price = Number(rawPrice);
+  if (!name || !Number.isFinite(price) || price < 0)
+    return res.status(400).json({error:"Nama dan harga produk wajib diisi dengan benar"});
+  try {
+    const rows = await sql`INSERT INTO products(name,price) VALUES(${name},${price}) RETURNING id,name,price,created_at`;
+    res.json({ok:true,product:rows[0]});
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({error:"Gagal membuat produk"});
+  }
+});
+
+app.delete("/api/products/:id", auth, ownerOnly, async (req,res) => {
+  try {
+    await sql`DELETE FROM products WHERE id=${req.params.id}`;
+    res.json({ok:true});
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({error:"Gagal menghapus produk"});
+  }
 });
 
 app.post("/api/gate/verify", async (req,res) => {
