@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KikoWebsite — ClientHub</title>
+<meta name="description" content="KikoWebsite premium Clienthub untuk guest dan member.">
+<style>
+:root{--bg:#07090f;--line:rgba(255,255,255,.085);--text:#f7f8fc;--muted:#8d97aa;--primary:#8b5cf6;--primary-2:#6366f1;--cyan:#22d3ee;--green:#35d07f;--danger:#fb7185;--shadow:0 24px 80px rgba(0,0,0,.38)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(900px 500px at 8% -5%,rgba(139,92,246,.18),transparent 60%),radial-gradient(800px 500px at 95% 4%,rgba(34,211,238,.10),transparent 58%),var(--bg);font:14px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,black,transparent 70%)}a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}.nav{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:relative;z-index:2}.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:-.035em;font-size:16px}.logo{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--cyan));box-shadow:0 12px 38px rgba(124,58,237,.32);font-weight:950}.nav-actions{display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:720;transition:.18s ease;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));border:0;box-shadow:0 12px 30px rgba(99,102,241,.22)}.btn.danger{color:#ff9baa}.login-btn{border-color:rgba(139,92,246,.38);background:rgba(139,92,246,.08)}.login-dot{width:7px;height:7px;border-radius:50%;background:#a78bfa;box-shadow:0 0 13px #a78bfa}.hero{padding:88px 0 56px;position:relative}.hero h1{font-size:clamp(48px,8vw,88px);line-height:.94;letter-spacing:-.075em;max-width:900px;margin:14px 0 20px}.hero h1 span{background:linear-gradient(100deg,#fff 20%,#bba7ff 58%,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:690px;font-size:17px;margin:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.statusbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}.status{border:1px solid var(--line);background:rgba(255,255,255,.035);padding:8px 11px;border-radius:999px;color:#c6cbd6;font-size:12px}.status i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:7px;box-shadow:0 0 10px var(--green)}.section{padding:24px 0 68px}.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}.section h2{font-size:30px;line-height:1.1;letter-spacing:-.045em;margin:5px 0 0}.eyebrow{color:#b9adff;font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.16em}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.022));border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}.link-card{min-height:210px;display:flex;flex-direction:column}.card-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.card h3{margin:15px 0 6px;font-size:18px;letter-spacing:-.02em}.muted{color:var(--muted)}.pill{display:inline-flex;padding:5px 9px;border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:999px;font-size:10px;color:#bac2d0;font-weight:800;letter-spacing:.06em}.download{width:100%;margin-top:auto}.discord{border:1px solid rgba(99,102,241,.24);background:linear-gradient(135deg,rgba(88,101,242,.10),rgba(139,92,246,.07));padding:26px;border-radius:22px;display:flex;justify-content:space-between;gap:20px;align-items:center}.admin{margin:0 0 70px}.admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.admin .card{min-height:150px}.hidden{display:none!important}.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}.modal.show{display:flex}.modalbox{width:min(620px,100%);max-height:90vh;overflow:auto;background:#0b0f17;border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 35px 100px rgba(0,0,0,.55)}.modalhead{display:flex;justify-content:space-between;align-items:center;gap:15px}.modalhead h2{margin:0;letter-spacing:-.04em}.x{cursor:pointer;color:var(--muted);font-size:26px;line-height:1}.form{display:grid;gap:13px;margin-top:18px}label{display:block;font-size:11px;color:#aab3c2;font-weight:800;letter-spacing:.08em;margin-bottom:6px}input,textarea,select{width:100%;background:#080b11;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;outline:none;transition:.18s}input:focus,textarea:focus,select:focus{border-color:rgba(139,92,246,.65);box-shadow:0 0 0 3px rgba(139,92,246,.10)}textarea{min-height:90px;resize:vertical}.gate-row{display:grid;grid-template-columns:1fr 1.5fr auto;gap:8px;margin-bottom:8px}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:10px;border-bottom:1px solid var(--line);text-align:left}.toast{position:fixed;right:18px;bottom:18px;background:#111722;border:1px solid var(--line);padding:13px 16px;border-radius:14px;display:none;z-index:80;box-shadow:var(--shadow)}.toast.show{display:block}.footer{padding:34px 0;color:var(--muted);border-top:1px solid var(--line)}.empty{grid-column:1/-1;text-align:center;padding:38px 20px}@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}.admin-grid{grid-template-columns:1fr}}@media(max-width:600px){.wrap{width:min(100% - 24px,1160px)}.nav{height:70px}.nav-actions .login-btn{font-size:0;padding:10px 12px}.nav-actions .login-btn .login-dot{margin:0}.hero{padding:58px 0 42px}.hero h1{font-size:52px}.hero p{font-size:15px}.hero-actions .login-hero{width:100%}.grid{grid-template-columns:1fr}.discord{align-items:flex-start;flex-direction:column}.gate-row{grid-template-columns:1fr}}</style>
+<style>
+body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transparent 35%),radial-gradient(circle at 90% 10%,rgba(139,92,246,.10),transparent 30%),var(--bg)}
+.nav{position:sticky;top:0;z-index:20;background:rgba(8,11,17,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.06)}
+.card{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}.card:hover{transform:translateY(-2px);border-color:rgba(139,92,246,.25);box-shadow:0 22px 60px rgba(0,0,0,.28)}
+.btn{transition:transform .16s ease,background .16s ease,border-color .16s ease}.btn:hover{transform:translateY(-1px)}
+.access-state{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025);font-size:12px;color:#b9c0cc}
+.access-dot{width:7px;height:7px;border-radius:50%;background:#737b88}.access-dot.ok{background:var(--green);box-shadow:0 0 12px rgba(52,211,153,.6)}
+.gate-note{padding:12px 14px;border:1px solid rgba(139,92,246,.18);background:rgba(139,92,246,.06);border-radius:14px;font-size:12px;color:#bfc6d2}
+.gate-step{display:flex;justify-content:space-between;align-items:center;gap:12px}.gate-step.done{border-color:rgba(52,211,153,.3)}
+@media(max-width:600px){.gate-step{align-items:flex-start;flex-direction:column}.gate-step .btn{width:100%}}
+</style></head>
+<body>
+<div class="wrap">
+<nav class="nav">
+  <div class="brand"><div class="logo">K</div><span>KikoLink</span></div>
+  <div class="nav-actions">
+    <button class="btn login-btn" id="loginBtn"><span class="login-dot"></span> Login Owner / Member</button>
+    <button class="btn primary hidden" id="panelBtn">Control Panel</button>
+    <button class="btn hidden" id="logoutBtn">Logout</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Premium Link Hub</div>
+  <h1><span>KikoLink</span><br>KikoEnakTau</h1>
+  <p>Library link yang rapi untuk Guest dan Member. Owner punya kontrol penuh untuk publish konten, proteksi follow/subscribe, dan manajemen akun.</p><div class="statusbar"><span class="status"><i></i>System online</span><span class="status">Guest + Member access</span><span class="status">Owner controlled</span></div>
+  <div class="hero-actions">
+    <a class="btn primary" href="https://discord.gg/U6sFp89fFa" target="_blank" rel="noopener">Join Discord</a>
+    <button class="btn login-hero" id="heroLoginBtn">Login Owner / Member</button>
+    <button class="btn" onclick="document.getElementById('links').scrollIntoView({behavior:'smooth'})">Lihat Link</button>
+  </div>
+</header>
+
+<section class="section" id="links">
+  <div class="section-head"><div><div class="eyebrow">Library</div><h2>Download Center</h2></div><span class="pill" id="modePill">Guest view</span></div>
+  <div class="grid" id="linkGrid"></div>
+</section>
+
+<section class="section">
+  <div class="discord"><div><div class="eyebrow">Community</div><h2 style="margin:5px 0">Discord KikoLink</h2><div class="muted">Update, support, dan informasi akses tersedia di server Discord.</div></div><a class="btn primary" href="https://discord.gg/U6sFp89fFa" target="_blank" rel="noopener">Open Discord ↗</a></div>
+</section>
+
+<section class="admin hidden" id="adminPanel">
+  <div class="card-top"><div><div class="eyebrow">Owner Control</div><h2>Panel</h2></div><span class="pill">OWNER</span></div>
+  <div class="admin-grid">
+    <div class="card">
+      <h3>Upload Guest Link</h3><p class="muted">Konten tampil untuk semua pengunjung.</p>
+      <button class="btn primary" onclick="openUpload('guest')">+ Tambah Guest Link</button>
+    </div>
+    <div class="card">
+      <h3>Upload Member Link</h3><p class="muted">Konten khusus member + kategori kebutuhan GTA.</p>
+      <button class="btn primary" onclick="openUpload('member')">+ Tambah Member Link</button>
+    </div>
+    <div class="card">
+      <h3>Buat Member</h3><p class="muted">Akun hanya dapat dibuat Owner.</p>
+      <button class="btn primary" onclick="openModal('memberModal')">+ Buat Akun</button>
+    </div>
+    <div class="card">
+      <h3>Member Aktif</h3><div id="memberList" class="muted">Memuat…</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">© <span id="year"></span> KikoLink · Built for a clean digital library.</footer>
+</div>
+
+<div class="modal" id="loginModal"><div class="modalbox"><div class="modalhead"><h2>Login</h2><span class="x" onclick="closeModal('loginModal')">×</span></div><form class="form" onsubmit="login(event)"><div><label>USERNAME</label><input id="loginUser" required></div><div><label>PASSWORD</label><input id="loginPass" type="password" required></div><button class="btn primary">Masuk</button></form></div></div>
+
+<div class="modal" id="uploadModal"><div class="modalbox"><div class="modalhead"><div><div class="eyebrow">Owner Upload</div><h2 id="uploadTitle">Tambah Link</h2></div><span class="x" onclick="closeModal('uploadModal')">×</span></div>
+<form class="form" onsubmit="saveLink(event)">
+<input type="hidden" id="visibility">
+<div><label>JUDUL</label><input id="title" required placeholder="Contoh: GTA SA Modpack V2"></div>
+<div><label>DESKRIPSI</label><textarea id="description" placeholder="Ringkasan isi link"></textarea></div>
+<div><label>URL DOWNLOAD</label><input id="url" type="url" required placeholder="https://..."></div>
+<div id="gtaWrap" class="hidden"><label>KEBUTUHAN GTA</label><select id="gta"><option value="">Pilih kategori</option><option>GTA San Andreas</option><option>GTA V</option><option>SAMP</option><option>MTA</option><option>FiveM</option><option>Script / Mod</option><option>Tools</option><option>Lainnya</option></select></div>
+<div><label>PROTEKSI FOLLOW / SUBSCRIBE</label><div id="gateRows"></div><button type="button" class="btn" onclick="addGate()">+ Tambah gate</button></div>
+<button class="btn primary">Publish Link</button>
+</form></div></div>
+
+<div class="modal" id="memberModal"><div class="modalbox"><div class="modalhead"><h2>Buat Member</h2><span class="x" onclick="closeModal('memberModal')">×</span></div><form class="form" onsubmit="createMember(event)"><div><label>USERNAME</label><input id="memberUser" required></div><div><label>PASSWORD</label><input id="memberPass" type="password" minlength="6" required></div><button class="btn primary">Buat Akun</button></form></div></div>
+
+<div class="modal" id="gateModal"><div class="modalbox"><div class="modalhead"><div><div class="eyebrow">Access Gate</div><h2>Lewati proteksi</h2></div><span class="x" onclick="closeModal('gateModal')">×</span></div><p class="muted">Buka setiap link follow/subscribe di bawah. Setelah selesai, klik tombol verifikasi untuk mendapatkan akses download.</p><div id="gateList" class="form"></div><button class="btn primary" id="verifyGate" style="width:100%;margin-top:16px">Saya sudah selesai</button></div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let session=null,currentGateLink=null,gateChecks=[];
+const $=id=>document.getElementById(id);
+function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>$("toast").classList.remove("show"),2800)}
+function openModal(id){$(id).classList.add("show")}function closeModal(id){$(id).classList.remove("show")}
+async function api(url,opt={}){const r=await fetch(url,{credentials:"include",headers:{"Content-Type":"application/json",...(opt.headers||{})},...opt});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"Request gagal");return d}
+async function boot(){$("year").textContent=new Date().getFullYear();try{session=await api("/api/session")}catch{session={authenticated:false}}renderSession();await loadLinks()}
+function renderSession(){const logged=!!session?.authenticated;$("loginBtn").classList.toggle("hidden",logged);$("logoutBtn").classList.toggle("hidden",!logged);$("panelBtn").classList.toggle("hidden",session?.user?.role!=="owner");$("adminPanel").classList.toggle("hidden",session?.user?.role!=="owner");$("modePill").textContent=logged?(session.user.role==="owner"?"Owner view":"Member view"):"Guest view";if(session?.user?.role==="owner")loadMembers()}
+async function login(e){e.preventDefault();try{session=await api("/api/login",{method:"POST",body:JSON.stringify({username:$("loginUser").value.trim(),password:$("loginPass").value})});closeModal("loginModal");renderSession();await loadLinks();toast("Login berhasil")}catch(err){toast(err.message)}}
+$("loginBtn").onclick=()=>openModal("loginModal");$("heroLoginBtn").onclick=()=>openModal("loginModal");$("logoutBtn").onclick=async()=>{await api("/api/logout",{method:"POST"});location.reload()};$("panelBtn").onclick=()=>$("adminPanel").scrollIntoView({behavior:"smooth"});
+function openUpload(v){$("visibility").value=v;$("uploadTitle").textContent=v==="member"?"Tambah Member Link":"Tambah Guest Link";$("gtaWrap").classList.toggle("hidden",v!=="member");$("gateRows").innerHTML="";addGate();openModal("uploadModal")}
+function addGate(label="",url=""){const row=document.createElement("div");row.className="gate-row";row.innerHTML=`<input class="gateLabel" placeholder="Label"><input class="gateUrl" type="url" placeholder="https://..."><button type="button" class="btn danger">×</button>`;row.querySelector(".gateLabel").value=label;row.querySelector(".gateUrl").value=url;row.querySelector("button").onclick=()=>row.remove();$("gateRows").appendChild(row)}
+async function saveLink(e){e.preventDefault();const gate=[...document.querySelectorAll(".gate-row")].map(r=>({label:r.querySelector(".gateLabel").value.trim(),url:r.querySelector(".gateUrl").value.trim()})).filter(x=>x.label&&x.url);try{await api("/api/links",{method:"POST",body:JSON.stringify({title:$("title").value.trim(),description:$("description").value.trim(),url:$("url").value.trim(),visibility:$("visibility").value,gta_category:$("gta").value,gate})});closeModal("uploadModal");e.target.reset();await loadLinks();toast("Link berhasil dipublish")}catch(err){toast(err.message)}}
+async function loadLinks(){const links=await api("/api/links");$("linkGrid").innerHTML=links.map(l=>{const locked=l.gate.length>0;return `<article class="card link-card"><div class="card-top"><span class="pill">${l.visibility==="member"?"MEMBER":"GUEST"}</span>${l.gta_category?`<span class="pill">${esc(l.gta_category)}</span>`:""}</div><h3>${esc(l.title)}</h3><p class="muted">${esc(l.description||"No description")}</p><div class="muted" style="font-size:12px">${locked?`Protected · ${l.gate.length} step`:"Direct access"}</div><div class="access-state"><span class="access-dot ${locked?"":"ok"}"></span>${locked?"Follow/subscribe required":"Ready to download"}</div><button class="btn primary download" onclick="downloadLink(${l.id})">${locked?"Unlock & Download":"Download ↗"}</button>${session?.user?.role==="owner"?`<button class="btn danger download" onclick="deleteLink(${l.id})">Hapus</button>`:""}</article>`}).join("")||`<div class="card empty"><h3>Belum ada link</h3><p class="muted">Owner belum mempublish konten.</p></div>`}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+async function downloadLink(id){const links=await api("/api/links"),l=links.find(x=>Number(x.id)===Number(id));if(!l)return;if(l.visibility==="member"&&!session?.authenticated){openModal("loginModal");toast("Login member diperlukan");return}if(!l.gate.length){location.href="/api/download/"+encodeURIComponent(id);return}currentGateLink=l;gateChecks=new Array(l.gate.length).fill(false);$("gateList").innerHTML=`<div class="gate-note">Selesaikan semua langkah. URL file tujuan tidak dikirim ke browser sebelum verifikasi selesai.</div>${l.gate.map((g,i)=>`<div class="card gate-step" id="gateStep${i}" style="padding:14px"><div><b>${esc(g.label)}</b><div class="muted" style="font-size:11px;margin-top:4px">Langkah ${i+1} dari ${l.gate.length}</div></div><button class="btn" type="button" onclick="openGate(${i},this)">Open ↗</button></div>`).join("")}`;$("verifyGate").disabled=false;openModal("gateModal")}
+function openGate(i,btn){const w=window.open(currentGateLink.gate[i].url,"_blank","noopener,noreferrer");if(w===null){toast("Izinkan pop-up untuk membuka link");return}gateChecks[i]=true;btn.textContent="✓ Selesai";btn.disabled=true;$("gateStep"+i).classList.add("done")}
+$("verifyGate").onclick=async()=>{if(!currentGateLink)return;if(!gateChecks.every(Boolean)){toast("Selesaikan semua langkah terlebih dahulu");return}const b=$("verifyGate");b.disabled=true;b.textContent="Memverifikasi…";try{const d=await api("/api/gate/verify",{method:"POST",body:JSON.stringify({id:currentGateLink.id,completed:gateChecks})});location.href="/api/download/"+encodeURIComponent(currentGateLink.id)+(d.token?"?token="+encodeURIComponent(d.token):"")}catch(err){b.disabled=false;b.textContent="Saya sudah selesai";toast(err.message)}};
+async function createMember(e){e.preventDefault();try{await api("/api/members",{method:"POST",body:JSON.stringify({username:$("memberUser").value.trim(),password:$("memberPass").value})});closeModal("memberModal");e.target.reset();loadMembers();toast("Member dibuat")}catch(err){toast(err.message)}}
+async function loadMembers(){try{const m=await api("/api/members");$("memberList").innerHTML=m.length?`<table class="table"><tr><th>Username</th><th></th></tr>${m.map(x=>`<tr><td>${esc(x.username)}</td><td><button class="btn danger" onclick="removeMember(${x.id})">Hapus</button></td></tr>`).join("")}</table>`:"Belum ada member"}catch{}}
+async function removeMember(id){if(!confirm("Hapus member ini?"))return;await api("/api/members/"+id,{method:"DELETE"});loadMembers()}
+async function deleteLink(id){if(!confirm("Hapus link ini?"))return;await api("/api/links/"+id,{method:"DELETE"});loadLinks()}
+boot();
+</script>
+</body>
+</html>
