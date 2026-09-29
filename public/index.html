@@ -35,7 +35,7 @@ body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transpar
   <h1><span>KikoLink</span><br>KikoEnakTau</h1>
   <p>Library link yang rapi untuk Guest dan Member. Owner punya kontrol penuh untuk publish konten, proteksi follow/subscribe, dan manajemen akun.</p><div class="statusbar"><span class="status"><i></i>System online</span><span class="status">Guest + Member access</span><span class="status">Owner controlled</span></div>
   <div class="hero-actions">
-    <a class="btn primary" href="https://discord.gg/U6sFp89fFa" target="_blank" rel="noopener">Join Discord</a>
+    <a class="btn primary" href="https://discord.com/users/1261324680636141719" target="_blank" rel="noopener">Join Discord</a>
     <button class="btn login-hero" id="heroLoginBtn">Login Owner / Member</button>
     <button class="btn" onclick="document.getElementById('links').scrollIntoView({behavior:'smooth'})">Lihat Link</button>
   </div>
@@ -47,7 +47,7 @@ body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transpar
 </section>
 
 <section class="section">
-  <div class="discord"><div><div class="eyebrow">Community</div><h2 style="margin:5px 0">Discord KikoLink</h2><div class="muted">Update, support, dan informasi akses tersedia di server Discord.</div></div><a class="btn primary" href="https://discord.gg/U6sFp89fFa" target="_blank" rel="noopener">Open Discord ↗</a></div>
+  <div class="discord"><div><div class="eyebrow">Community</div><h2 style="margin:5px 0">Discord KikoLink</h2><div class="muted">Update, support, dan informasi akses tersedia di server Discord.</div></div><a class="btn primary" href="https://discord.com/users/1261324680636141719" target="_blank" rel="noopener">Open Discord ↗</a></div>
 </section>
 
 <section class="admin hidden" id="adminPanel">
@@ -79,7 +79,7 @@ body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transpar
 <footer class="footer">© <span id="year"></span> KikoLink · Built for a clean digital library.</footer>
 </div>
 
-<div class="modal" id="buyModal"><div class="modalbox"><div class="modalhead"><div><div class="eyebrow">Purchase</div><h2>Buy</h2></div><span class="x" onclick="closeModal('buyModal')">×</span></div><p class="muted">Pilih produk yang ingin dibeli. Setelah pembayaran, hubungi Owner melalui Discord untuk proses pengiriman akses/link.</p><div id="buyList" class="buy-list"></div><div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap"><a class="btn primary" href="https://discord.gg/U6sFp89fFa" target="_blank" rel="noopener">Open Discord ↗</a><button class="btn" type="button" onclick="copyDiscordLink()">Copy Discord Link</button></div></div></div>
+<div class="modal" id="buyModal"><div class="modalbox"><div class="modalhead"><div><div class="eyebrow">Purchase</div><h2>Buy</h2></div><span class="x" onclick="closeModal('buyModal')">×</span></div><p class="muted">Pilih produk yang ingin dibeli. Setelah pembayaran, hubungi Owner melalui Discord untuk proses pengiriman akses/link.</p><div id="buyList" class="buy-list"></div><div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap"><a class="btn primary" href="https://discord.com/users/1261324680636141719" target="_blank" rel="noopener">Open Discord ↗</a><button class="btn" type="button" onclick="copyDiscordLink()">Copy Discord Link</button></div></div></div>
 
 
 
@@ -113,8 +113,8 @@ async function api(url,opt={}){const r=await fetch(url,{credentials:"include",he
 async function boot(){$("year").textContent=new Date().getFullYear();try{session=await api("/api/session")}catch{session={authenticated:false}}renderSession();await loadLinks();await loadProducts()}
 function renderSession(){const logged=!!session?.authenticated;$("loginBtn").classList.toggle("hidden",logged);$("logoutBtn").classList.toggle("hidden",!logged);$("panelBtn").classList.toggle("hidden",session?.user?.role!=="owner");$("adminPanel").classList.toggle("hidden",session?.user?.role!=="owner");$("modePill").textContent=logged?(session.user.role==="owner"?"Owner view":"Member view"):"Guest view";if(session?.user?.role==="owner"){loadMembers();loadProducts()}}
 
-async function copyDiscordLink(){const url="https://discord.gg/U6sFp89fFa";try{await navigator.clipboard.writeText(url);toast("Link Discord disalin")}catch{toast(url)}}
-async function loadProducts(){try{const products=await api("/api/products");const list=$("buyList");if(list)list.innerHTML=products.length?products.map(p=>`<div class="buy-item"><div><h3>${esc(p.name)}</h3><div class="price">Rp ${Number(p.price).toLocaleString("id-ID")}</div></div><a class="btn primary" href="https://discord.gg/U6sFp89fFa" target="_blank" rel="noopener">Buy</a></div>`).join(""):`<div class="card empty"><h3>Belum ada produk</h3><p class="muted">Owner belum menambahkan produk.</p></div>`;const admin=$("productAdminList");if(admin)admin.innerHTML=products.length?products.map(p=>`<div class="admin-product"><span><b>${esc(p.name)}</b><br><small class="muted">Rp ${Number(p.price).toLocaleString("id-ID")}</small></span><button class="btn danger" onclick="deleteProduct(${p.id})">Hapus</button></div>`).join(""):"<span class=\"muted\">Belum ada produk.</span>"}catch(err){toast(err.message)}}
+async function copyDiscordLink(){const url="https://discord.com/users/1261324680636141719";try{await navigator.clipboard.writeText(url);toast("Link Discord disalin")}catch{toast(url)}}
+async function loadProducts(){try{const products=await api("/api/products");const list=$("buyList");if(list)list.innerHTML=products.length?products.map(p=>`<div class="buy-item"><div><h3>${esc(p.name)}</h3><div class="price">Rp ${Number(p.price).toLocaleString("id-ID")}</div></div><a class="btn primary" href="https://discord.com/users/1261324680636141719" target="_blank" rel="noopener">Buy</a></div>`).join(""):`<div class="card empty"><h3>Belum ada produk</h3><p class="muted">Owner belum menambahkan produk.</p></div>`;const admin=$("productAdminList");if(admin)admin.innerHTML=products.length?products.map(p=>`<div class="admin-product"><span><b>${esc(p.name)}</b><br><small class="muted">Rp ${Number(p.price).toLocaleString("id-ID")}</small></span><button class="btn danger" onclick="deleteProduct(${p.id})">Hapus</button></div>`).join(""):"<span class=\"muted\">Belum ada produk.</span>"}catch(err){toast(err.message)}}
 async function createProduct(e){e.preventDefault();try{await api("/api/products",{method:"POST",body:JSON.stringify({name:$("productName").value.trim(),price:$("productPrice").value})});closeModal("productModal");e.target.reset();await loadProducts();toast("Produk berhasil dibuat")}catch(err){toast(err.message)}}
 async function deleteProduct(id){if(!confirm("Hapus produk ini?"))return;try{await api("/api/products/"+id,{method:"DELETE"});await loadProducts();toast("Produk dihapus")}catch(err){toast(err.message)}}
 async function login(e){e.preventDefault();try{session=await api("/api/login",{method:"POST",body:JSON.stringify({username:$("loginUser").value.trim(),password:$("loginPass").value})});closeModal("loginModal");renderSession();await loadLinks();toast("Login berhasil")}catch(err){toast(err.message)}}
