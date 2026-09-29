@@ -16,6 +16,7 @@ body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transpar
 .access-dot{width:7px;height:7px;border-radius:50%;background:#737b88}.access-dot.ok{background:var(--green);box-shadow:0 0 12px rgba(52,211,153,.6)}
 .gate-note{padding:12px 14px;border:1px solid rgba(139,92,246,.18);background:rgba(139,92,246,.06);border-radius:14px;font-size:12px;color:#bfc6d2}
 .gate-step{display:flex;justify-content:space-between;align-items:center;gap:12px}.gate-step.done{border-color:rgba(52,211,153,.3)}
+.price{font-size:22px;font-weight:850;letter-spacing:-.04em;margin:10px 0}.buy-list{display:grid;gap:10px}.buy-item{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.buy-item h3{margin:0 0 2px;font-size:15px}.buy-item .btn{white-space:nowrap}.admin-product-list{display:grid;gap:8px;margin-top:14px}.admin-product{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)}
 @media(max-width:600px){.gate-step{align-items:flex-start;flex-direction:column}.gate-step .btn{width:100%}}
 </style></head>
 <body>
@@ -23,7 +24,7 @@ body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transpar
 <nav class="nav">
   <div class="brand"><div class="logo"><img src="https://i.imgur.com/fX6bKu6.gif" alt="KikoLink"></div><span>KikoLink</span></div>
   <div class="nav-actions">
-    <button class="btn login-btn" id="loginBtn"><span class="login-dot"></span> Login Owner / Member</button>
+    <button class="btn" id="buyBtn">Buy</button><button class="btn login-btn" id="loginBtn"><span class="login-dot"></span> Login Owner / Member</button>
     <button class="btn primary hidden" id="panelBtn">Control Panel</button>
     <button class="btn hidden" id="logoutBtn">Logout</button>
   </div>
@@ -65,6 +66,11 @@ body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transpar
       <button class="btn primary" onclick="openModal('memberModal')">+ Buat Akun</button>
     </div>
     <div class="card">
+      <h3>Produk Buy</h3><p class="muted">Owner bisa membuat nama produk dan harga yang tampil di menu Buy.</p>
+      <button class="btn primary" onclick="openModal('productModal')">+ Tambah Produk</button>
+      <div id="productAdminList" class="admin-product-list"></div>
+    </div>
+    <div class="card">
       <h3>Member Aktif</h3><div id="memberList" class="muted">Memuat…</div>
     </div>
   </div>
@@ -72,6 +78,10 @@ body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transpar
 
 <footer class="footer">© <span id="year"></span> KikoLink · Built for a clean digital library.</footer>
 </div>
+
+<div class="modal" id="buyModal"><div class="modalbox"><div class="modalhead"><div><div class="eyebrow">Purchase</div><h2>Buy</h2></div><span class="x" onclick="closeModal('buyModal')">×</span></div><p class="muted">Pilih produk yang ingin dibeli. Setelah pembayaran, hubungi Owner melalui Discord untuk proses pengiriman akses/link.</p><div id="buyList" class="buy-list"></div><div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap"><a class="btn primary" href="https://discord.gg/U6sFp89fFa" target="_blank" rel="noopener">Open Discord ↗</a><button class="btn" type="button" onclick="copyDiscordLink()">Copy Discord Link</button></div></div></div>
+
+
 
 <div class="modal" id="loginModal"><div class="modalbox"><div class="modalhead"><h2>Login</h2><span class="x" onclick="closeModal('loginModal')">×</span></div><form class="form" onsubmit="login(event)"><div><label>USERNAME</label><input id="loginUser" required></div><div><label>PASSWORD</label><input id="loginPass" type="password" required></div><button class="btn primary">Masuk</button></form></div></div>
 
@@ -86,6 +96,8 @@ body{background:radial-gradient(circle at 15% -10%,rgba(99,102,241,.13),transpar
 <button class="btn primary">Publish Link</button>
 </form></div></div>
 
+<div class="modal" id="productModal"><div class="modalbox"><div class="modalhead"><div><div class="eyebrow">Owner Control</div><h2>Tambah Produk</h2></div><span class="x" onclick="closeModal('productModal')">×</span></div><form class="form" onsubmit="createProduct(event)"><div><label>NAMA PRODUK</label><input id="productName" required placeholder="Contoh: Modpack Premium"></div><div><label>HARGA</label><input id="productPrice" type="number" min="0" step="1000" required placeholder="50000"></div><button class="btn primary">Simpan Produk</button></form></div></div>
+
 <div class="modal" id="memberModal"><div class="modalbox"><div class="modalhead"><h2>Buat Member</h2><span class="x" onclick="closeModal('memberModal')">×</span></div><form class="form" onsubmit="createMember(event)"><div><label>USERNAME</label><input id="memberUser" required></div><div><label>PASSWORD</label><input id="memberPass" type="password" minlength="6" required></div><button class="btn primary">Buat Akun</button></form></div></div>
 
 <div class="modal" id="gateModal"><div class="modalbox"><div class="modalhead"><div><div class="eyebrow">Access Gate</div><h2>Lewati proteksi</h2></div><span class="x" onclick="closeModal('gateModal')">×</span></div><p class="muted">Buka setiap link follow/subscribe di bawah. Setelah selesai, klik tombol verifikasi untuk mendapatkan akses download.</p><div id="gateList" class="form"></div><button class="btn primary" id="verifyGate" style="width:100%;margin-top:16px">Saya sudah selesai</button></div></div>
@@ -98,10 +110,15 @@ const $=id=>document.getElementById(id);
 function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>$("toast").classList.remove("show"),2800)}
 function openModal(id){$(id).classList.add("show")}function closeModal(id){$(id).classList.remove("show")}
 async function api(url,opt={}){const r=await fetch(url,{credentials:"include",headers:{"Content-Type":"application/json",...(opt.headers||{})},...opt});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"Request gagal");return d}
-async function boot(){$("year").textContent=new Date().getFullYear();try{session=await api("/api/session")}catch{session={authenticated:false}}renderSession();await loadLinks()}
-function renderSession(){const logged=!!session?.authenticated;$("loginBtn").classList.toggle("hidden",logged);$("logoutBtn").classList.toggle("hidden",!logged);$("panelBtn").classList.toggle("hidden",session?.user?.role!=="owner");$("adminPanel").classList.toggle("hidden",session?.user?.role!=="owner");$("modePill").textContent=logged?(session.user.role==="owner"?"Owner view":"Member view"):"Guest view";if(session?.user?.role==="owner")loadMembers()}
+async function boot(){$("year").textContent=new Date().getFullYear();try{session=await api("/api/session")}catch{session={authenticated:false}}renderSession();await loadLinks();await loadProducts()}
+function renderSession(){const logged=!!session?.authenticated;$("loginBtn").classList.toggle("hidden",logged);$("logoutBtn").classList.toggle("hidden",!logged);$("panelBtn").classList.toggle("hidden",session?.user?.role!=="owner");$("adminPanel").classList.toggle("hidden",session?.user?.role!=="owner");$("modePill").textContent=logged?(session.user.role==="owner"?"Owner view":"Member view"):"Guest view";if(session?.user?.role==="owner"){loadMembers();loadProducts()}}
+
+async function copyDiscordLink(){const url="https://discord.gg/U6sFp89fFa";try{await navigator.clipboard.writeText(url);toast("Link Discord disalin")}catch{toast(url)}}
+async function loadProducts(){try{const products=await api("/api/products");const list=$("buyList");if(list)list.innerHTML=products.length?products.map(p=>`<div class="buy-item"><div><h3>${esc(p.name)}</h3><div class="price">Rp ${Number(p.price).toLocaleString("id-ID")}</div></div><a class="btn primary" href="https://discord.gg/U6sFp89fFa" target="_blank" rel="noopener">Buy</a></div>`).join(""):`<div class="card empty"><h3>Belum ada produk</h3><p class="muted">Owner belum menambahkan produk.</p></div>`;const admin=$("productAdminList");if(admin)admin.innerHTML=products.length?products.map(p=>`<div class="admin-product"><span><b>${esc(p.name)}</b><br><small class="muted">Rp ${Number(p.price).toLocaleString("id-ID")}</small></span><button class="btn danger" onclick="deleteProduct(${p.id})">Hapus</button></div>`).join(""):"<span class=\"muted\">Belum ada produk.</span>"}catch(err){toast(err.message)}}
+async function createProduct(e){e.preventDefault();try{await api("/api/products",{method:"POST",body:JSON.stringify({name:$("productName").value.trim(),price:$("productPrice").value})});closeModal("productModal");e.target.reset();await loadProducts();toast("Produk berhasil dibuat")}catch(err){toast(err.message)}}
+async function deleteProduct(id){if(!confirm("Hapus produk ini?"))return;try{await api("/api/products/"+id,{method:"DELETE"});await loadProducts();toast("Produk dihapus")}catch(err){toast(err.message)}}
 async function login(e){e.preventDefault();try{session=await api("/api/login",{method:"POST",body:JSON.stringify({username:$("loginUser").value.trim(),password:$("loginPass").value})});closeModal("loginModal");renderSession();await loadLinks();toast("Login berhasil")}catch(err){toast(err.message)}}
-$("loginBtn").onclick=()=>openModal("loginModal");$("heroLoginBtn").onclick=()=>openModal("loginModal");$("logoutBtn").onclick=async()=>{await api("/api/logout",{method:"POST"});location.reload()};$("panelBtn").onclick=()=>$("adminPanel").scrollIntoView({behavior:"smooth"});
+$("buyBtn").onclick=()=>openModal("buyModal");$("loginBtn").onclick=()=>openModal("loginModal");$("heroLoginBtn").onclick=()=>openModal("loginModal");$("logoutBtn").onclick=async()=>{await api("/api/logout",{method:"POST"});location.reload()};$("panelBtn").onclick=()=>$("adminPanel").scrollIntoView({behavior:"smooth"});
 function openUpload(v){$("visibility").value=v;$("uploadTitle").textContent=v==="member"?"Tambah Member Link":"Tambah Guest Link";$("gtaWrap").classList.toggle("hidden",v!=="member");$("gateRows").innerHTML="";addGate();openModal("uploadModal")}
 function addGate(label="",url=""){const row=document.createElement("div");row.className="gate-row";row.innerHTML=`<input class="gateLabel" placeholder="Label"><input class="gateUrl" type="url" placeholder="https://..."><button type="button" class="btn danger">×</button>`;row.querySelector(".gateLabel").value=label;row.querySelector(".gateUrl").value=url;row.querySelector("button").onclick=()=>row.remove();$("gateRows").appendChild(row)}
 async function saveLink(e){e.preventDefault();const gate=[...document.querySelectorAll(".gate-row")].map(r=>({label:r.querySelector(".gateLabel").value.trim(),url:r.querySelector(".gateUrl").value.trim()})).filter(x=>x.label&&x.url);try{await api("/api/links",{method:"POST",body:JSON.stringify({title:$("title").value.trim(),description:$("description").value.trim(),url:$("url").value.trim(),visibility:$("visibility").value,gta_category:$("gta").value,gate})});closeModal("uploadModal");e.target.reset();await loadLinks();toast("Link berhasil dipublish")}catch(err){toast(err.message)}}
